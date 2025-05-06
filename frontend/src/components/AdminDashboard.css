@@ -1,0 +1,169 @@
+.dashboard-container {
+  padding: 24px;
+  font-family: sans-serif;
+}
+
+.dashboard-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.dashboard-date {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 16px;
+}
+
+.dashboard-tabs {
+  display: flex;
+  gap: 16px;
+  border-bottom: 2px solid #e5e7eb;
+  margin-bottom: 24px;
+}
+
+.dashboard-tab-button {
+  padding: 8px 0;
+  border: none;
+  background: none;
+  font-weight: 500;
+  color: #6b7280;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.dashboard-tab-button.active {
+  color: #3b82f6;
+  border-bottom-color: #3b82f6;
+}
+
+.dashboard-cards {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  cursor: pointer;
+}
+
+.dashboard-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 12px;
+  color: white;
+}
+
+.bg-blue {
+  background-color: #4152e7;
+}
+
+.bg-green {
+  background-color: #10b93a;
+}
+
+.bg-purple {
+  background-color: #c43ec4;
+}
+
+.bg-orange {
+  background-color: #4dd4a7;
+}
+
+.dashboard-icon {
+  font-size: 32px;
+}
+
+.dashboard-card-title {
+  font-size: 20px;
+  color: #e5e7eb;
+}
+
+.dashboard-card-count {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.dashboard-chart {
+  margin-top: 32px;
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.chart-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.tabs {
+  display: flex;
+  border-bottom: 2px solid #e5e7eb;
+  margin-bottom: 24px;
+}
+
+.tab {
+  padding: 12px 20px;
+  cursor: pointer;
+  font-weight: 500;
+  color: #6b7280;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.3s, color 0.3s;
+}
+
+.tab:hover {
+  color: #111827;
+}
+
+.tab.active {
+  color: #3b82f6;
+  border-bottom: 2px solid #3b82f6;
+}
+
+.recent-orders-section {
+  margin-top: 2rem;
+}
+
+.section-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border: 2px solid #8265c5;
+  overflow: hidden;
+}
+
+.orders-table th,
+.orders-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border: 1px solid #ccc;
+}
+
+.orders-table th {
+  background-color: #8265c5;
+  font-weight: 600;
+}
+
+.orders-table thead th {
+  border-bottom: 2px solid #ccc;
+}
+
+.orders-table tbody tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+.welcome-message {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
