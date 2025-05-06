@@ -10,9 +10,7 @@ export class AuthController {
   async register(req: Request, res: Response): Promise<void> {
     try {
       const { name, email, password, phone, role } = req.body;
-  
-      console.log("Registering user:", { name, email, password, phone, role });
-  
+    
       const existingUser = await userRepository.findOne({ where: { email } });
       if (existingUser) {
         console.log("Email already exists");

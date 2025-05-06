@@ -169,12 +169,6 @@
   margin-top: 10px;
 }
 
-/* .product-attribute {
-  display: flex;
-  justify-content: space-between;
-  font-size: 1rem;
-} */
-
 .product-attribute .label {
   font-weight: bold;
 }

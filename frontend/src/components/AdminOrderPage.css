@@ -101,7 +101,6 @@
   border-radius: 5px;
 }
 
-/* Base styling for dropdown */
 .status-dropdown {
   padding: 4px 7px;
   border-radius: 5px;
@@ -113,7 +112,6 @@
   cursor: pointer;
 }
 
-/* Colored border + text based on status */
 .status-dropdown.pending {
   border-color: #f59e0b;
   color: #f59e0b;

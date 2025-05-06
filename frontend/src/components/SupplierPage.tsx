@@ -26,7 +26,7 @@ const SupplierPage: React.FC = () => {
     name: "",
     email: "",
     phone: "",
-    address:"",
+    address: "",
     company: "",
   });
 
@@ -138,7 +138,7 @@ const SupplierPage: React.FC = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <button onClick={() => {
-          setFormData({ name: "", email: "", phone: "", address:"", company: "" });
+          setFormData({ name: "", email: "", phone: "", address: "", company: "" });
           setEditing(null);
           setShowForm(true);
         }}>
@@ -147,22 +147,21 @@ const SupplierPage: React.FC = () => {
       </div>
 
       {showForm && (
-  <div className="overlay">
-    <form onSubmit={handleSubmit} className="supplier-form modal">
-      <h3>{editing ? "Edit Supplier" : "Add Supplier"}</h3>
-      <input name="name" placeholder="Name" value={formData.name} onChange={handleChange} required />
-      <input name="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
-      <input name="phone" placeholder="Phone" value={formData.phone} onChange={handleChange} required />
-      <input name="address" placeholder="Address" value={formData.address} onChange={handleChange} required />
-      <input name="company" placeholder="Company" value={formData.company} onChange={handleChange} required />
-      <div className="modal-buttons">
-        <button type="submit">{editing ? "Update" : "Add"} Supplier</button>
-        <button type="button" className="cancel-btn" onClick={() => setShowForm(false)}>Cancel</button>
-      </div>
-    </form>
-  </div>
-)}
-
+        <div className="overlay">
+          <form onSubmit={handleSubmit} className="supplier-form modal">
+            <h3>{editing ? "Edit Supplier" : "Add Supplier"}</h3>
+            <input name="name" placeholder="Name" value={formData.name} onChange={handleChange} required />
+            <input name="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
+            <input name="phone" placeholder="Phone" value={formData.phone} onChange={handleChange} required />
+            <input name="address" placeholder="Address" value={formData.address} onChange={handleChange} required />
+            <input name="company" placeholder="Company" value={formData.company} onChange={handleChange} required />
+            <div className="modal-buttons">
+              <button type="submit">{editing ? "Update" : "Add"} Supplier</button>
+              <button type="button" className="cancel-btn" onClick={() => setShowForm(false)}>Cancel</button>
+            </div>
+          </form>
+        </div>
+      )}
 
       <table className="supplier-table">
         <thead>

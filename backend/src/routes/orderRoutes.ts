@@ -15,7 +15,6 @@ router.get("/", authenticateToken, getOrders);
 router.delete("/:id", authenticateToken, cancelOrder);
 router.get('/user', authenticateToken, getOrdersByUser);
 router.get("/all", authenticateAdminToken, getAllOrders);
-// router.put("/:id", authenticateAdminToken, updateOrder);
 router.put("/status/:id", authenticateAdminToken, updateOrderStatus);
 
 export default router;

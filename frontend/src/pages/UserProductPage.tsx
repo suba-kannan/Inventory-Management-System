@@ -1,153 +1,3 @@
-// import { useEffect, useState } from "react";
-// import axios, { AxiosError } from "axios";
-// import "./UserProductPage.css";
-
-// interface Product {
-//   id: number;
-//   name: string;
-//   description: string;
-//   price: number;
-//   stock: number;
-// }
-
-// const UserProductPage = () => {
-//   const [products, setProducts] = useState<Product[]>([]);
-//   const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
-//   const [quantity, setQuantity] = useState<number>(1);
-//   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-
-//   const fetchProducts = async () => {
-//     try {
-//       const token = localStorage.getItem("token");
-//       const response = await axios.get("http://localhost:5000/api/products/", {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//         },
-//       });
-//       setProducts(response.data);
-//     } catch (error) {
-//       console.error("Error fetching products:", error);
-//     }
-//   };
-
-//   const handleOrder = async () => {
-//     if (!selectedProductId || quantity <= 0) return;
-
-//     try {
-//       const token = localStorage.getItem("token");
-//       await axios.post(
-//         "http://localhost:5000/api/order",
-//         {
-//           productId: selectedProductId,
-//           quantity,
-//         },
-//         {
-//           headers: {
-//             Authorization: `Bearer ${token}`,
-//           },
-//         }
-//       );
-
-//       alert("Order placed successfully!");
-//       setSelectedProductId(null);
-//       setQuantity(1);
-//       fetchProducts();
-//     } catch (error) {
-//       const err = error as AxiosError<{ message: string }>;
-//       console.error("Error placing order:", err.message);
-//       alert(err.response?.data?.message || "Failed to place order");
-//     }
-//   };
-
-//   const handleCancel = () => {
-//     setSelectedProductId(null);
-//     setQuantity(1);
-//   };
-
-//   useEffect(() => {
-//     fetchProducts();
-//   }, []);
-
-//   useEffect(() => {
-//     const product = products.find((p) => p.id === selectedProductId);
-//     setSelectedProduct(product || null);
-//   }, [selectedProductId, products]);
-
-//   const totalPrice = selectedProduct ? selectedProduct.price * quantity : 0;
-
-//   return (
-//     <div className="user-product-page">
-//       <h2 className="page-title">Available Products</h2>
-//       {products.length === 0 ? (
-//         <p className="no-products">No products found.</p>
-//       ) : (
-//         <ul className="product-list">
-//           {products.map((product) => (
-//             <li key={product.id} className="product-item">
-//               <div className="product-info">
-//                 <div className="product-details">
-//                   <strong className="product-name">{product.name}</strong> <br />
-//                   <span className="product-description">{product.description}</span> <br />
-//                   <span className="product-price">₹{product.price}</span> <br />
-//                   <span className="product-stock">
-//                     Stock:{" "}
-//                     {product.stock > 0 ? (
-//                       <span className="stock-available">{product.stock}</span>
-//                     ) : (
-//                       <span className="stock-unavailable">Sold Out</span>
-//                     )}
-//                   </span>
-//                 </div>
-//                 {product.stock > 0 && (
-//                   <button
-//                     onClick={() => setSelectedProductId(product.id)}
-//                     className="order-button"
-//                   >
-//                     Order
-//                   </button>
-//                 )}
-//               </div>
-
-//               {selectedProductId === product.id && product.stock > 0 && (
-//                 <div className="order-form">
-//                   <label className="quantity-label">Quantity:</label>
-//                   <input
-//                     type="number"
-//                     min="1"
-//                     max={product.stock}
-//                     value={quantity}
-//                     onChange={(e) => setQuantity(parseInt(e.target.value))}
-//                     className="quantity-input"
-//                   />
-//                   <div className="total-price">
-//                     <strong>Total Price: </strong>
-//                     ${totalPrice.toFixed(2)}
-//                   </div>
-//                   <div className="order-actions">
-//                   <button
-//                     onClick={handleOrder}
-//                     className="place-order-button"
-//                   >
-//                     Place Order
-//                   </button>
-//                   <button
-//                     onClick={handleCancel}
-//                     className="cancel-button"
-//                   >
-//                     Cancel
-//                   </button>
-//                   </div>
-//                 </div>
-//               )}
-//             </li>
-//           ))}
-//         </ul>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default UserProductPage;
 import { useEffect, useState } from "react";
 import axios, { AxiosError } from "axios";
 import "./UserProductPage.css";
@@ -158,7 +8,7 @@ interface Product {
   description: string;
   price: number;
   stock: number;
-  category: string; // category ID as string
+  category: string;
 }
 
 interface Category {
@@ -174,7 +24,6 @@ const UserProductPage = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
-  // Fetch products
   const fetchProducts = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -189,7 +38,6 @@ const UserProductPage = () => {
     }
   };
 
-  // Fetch categories
   const fetchCategories = async () => {
     try {
       const response = await axios.get("http://localhost:5000/api/categories");
@@ -243,12 +91,11 @@ const UserProductPage = () => {
     setSelectedProduct(product || null);
   }, [selectedProductId, products]);
 
-  // Get category name by category ID
   const getCategoryName = (categoryId: string) => {
     const category = categories.find((cat) => cat.id === parseInt(categoryId));
     return category ? category.name : "No Category";
   };
-  // Filter products based on search term
+
   const filteredProducts = products.filter((product) => {
     const productNameMatch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
     const categoryName = getCategoryName(product.category);
@@ -256,16 +103,12 @@ const UserProductPage = () => {
     return productNameMatch || categoryMatch;
   });
 
-
-
-
   const totalPrice = selectedProduct ? selectedProduct.price * quantity : 0;
 
   return (
     <div className="user-product-page">
-      <h2 className="page-title">Available Products</h2>
+      <h2 className="page-title">Products</h2>
 
-      {/* Search input */}
       <input
         type="text"
         placeholder="Search products..."

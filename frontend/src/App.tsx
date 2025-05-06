@@ -1,53 +1,3 @@
-// import { Routes, Route, useLocation } from "react-router-dom";
-// import { useState } from "react";
-// import PrivateRoute from "./components/PrivateRoute";
-// import AdminDashboard from "./components/AdminDashboard";
-// import ProductPage from "./components/ProductPage";
-// import LoginSignup from "./components/LoginSignup";
-// import Sidebar from "./components/Sidebar";
-// import SupplierPage from "./components/SupplierPage";
-// import CategoryPage from "./components/CategoryPage";
-// import ProfilePage from "./components/ProfilePage";
-// import UserManagement from "./components/UserManagement";
-// import UserProductPage from "./pages/UserProductPage";
-// import UserOrderPage from "./pages/UserOrderPage";
-// import AdminOrderPage from "./components/AdminOrderPage";
-
-// function App() {
-//   const location = useLocation();
-//   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-
-//   const handleSidebarToggle = (collapsed: boolean) => {
-//     setIsSidebarCollapsed(collapsed);
-//   };
-
-//   const isAuthPage = location.pathname === "/";
-
-//   return (
-//     <div className="app-container">
-//       {!isAuthPage && <Sidebar onSidebarToggle={handleSidebarToggle} />}
-
-//       <div className={`content-container ${!isAuthPage && isSidebarCollapsed ? "collapsed" : ""}`}>
-//         <Routes>
-//           <Route path="/" element={<LoginSignup />} />
-//           <Route path="/admin-dashboard" element={<AdminDashboard />} />
-//           <Route path="/product" element={<ProductPage />} />
-//           <Route path="/suppliers" element={<SupplierPage/>} />
-//           <Route path="/category" element={<CategoryPage />} />
-//           <Route path="/profile" element={<ProfilePage />} />
-//           <Route path="/orders" element={<AdminOrderPage />} />
-
-//           <Route path="/user" element={<UserManagement />} />
-//           <Route path="/user-product" element={<UserProductPage />} />
-//           <Route path="/user-orders" element={<UserOrderPage />} />
-
-//         </Routes>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default App;
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useState } from "react";
 import PrivateRoute from "./components/PrivateRoute";
@@ -81,7 +31,6 @@ function App() {
         <Routes>
           <Route path="/" element={<LoginSignup />} />
 
-          {/* Admin Routes */}
           <Route
             path="/admin-dashboard"
             element={
@@ -131,7 +80,6 @@ function App() {
             }
           />
 
-          {/* Common/User Routes */}
           <Route
             path="/profile"
             element={

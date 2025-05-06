@@ -81,49 +81,26 @@ const UserManagement = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-//   const handleFormSubmit = async () => {
-//     const token = localStorage.getItem('token');
-//     try {
-//       if (formData.id === 0) {
-//         await axios.post(`${BASE_URL}/api/users`, formData, {
-//           headers: { Authorization: `Bearer ${token}` },
-//         });
-//       } else {
-//         const { password, ...updatedData } = formData;
-//         await axios.put(`${BASE_URL}/api/users/${formData.id}`, updatedData, {
-//           headers: { Authorization: `Bearer ${token}` },
-//         });
-//       }
-//       setEditingUser(null);
-//       fetchUsers();
-//     } catch (err) {
-//       console.error('Failed to save user:', err);
-//     }
-//   };
 const handleFormSubmit = async () => {
     const { name, email, phone, password, role } = formData;
   
-    // Required fields check
     if (!name.trim() || !email.trim() || !phone.trim() || !role) {
       alert('All fields are required.');
       return;
     }
   
-    // Email validation
     const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
     if (!emailRegex.test(email)) {
       alert('Email must end with @gmail.com');
       return;
     }
   
-    // Phone number validation
     const phoneRegex = /^\d{10}$/;
     if (!phoneRegex.test(phone)) {
       alert('Phone number must be exactly 10 digits.');
       return;
     }
   
-    // Password validation (for new users)
     if (editingUser?.id === 0) {
       const passwordRegex =
         /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{6,}$/;

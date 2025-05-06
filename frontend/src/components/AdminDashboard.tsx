@@ -11,6 +11,24 @@ type Stats = {
   users: number;
 };
 
+type Order = {
+  id: number;
+  user?: {
+    name: string;
+  };
+  product?: {
+    name: string;
+  };
+  quantity: number;
+};
+
+type Product = {
+  id: number;
+  name: string;
+  stock: number;
+};
+
+
 const AdminDashboard: React.FC = () => {
   const [stats, setStats] = useState<Stats>({
     products: 0,
@@ -20,8 +38,10 @@ const AdminDashboard: React.FC = () => {
   });
   const [lastUpdated, setLastUpdated] = useState<string>('');
   const [activeTab, setActiveTab] = useState<'overview' | 'analytics'>('overview');
-  const [recentOrders, setRecentOrders] = useState<any[]>([]);
-  const [showWelcomeMessage, setShowWelcomeMessage] = useState(true); // State to manage the welcome message visibility
+  const [recentOrders, setRecentOrders] = useState<Order[]>([]);
+  const [showWelcomeMessage, setShowWelcomeMessage] = useState(true);
+  const [lowStockProducts, setLowStockProducts] = useState<Product[]>([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -46,7 +66,7 @@ const AdminDashboard: React.FC = () => {
       }),
     ]);
 
-    const products = await productsRes.json();
+    const products: Product[] = await productsRes.json();
     const categories = await categoriesRes.json();
     const orders = await ordersRes.json();
     const users = await usersRes.json();
@@ -58,9 +78,16 @@ const AdminDashboard: React.FC = () => {
       users: users.length,
     });
 
-    setRecentOrders(orders.slice(-5).reverse());
+    const sortedOrders = orders
+      .sort((a: Order, b: Order) => b.id - a.id)
+      .slice(0, 6);
+
+    setRecentOrders(sortedOrders);
+    const lowStock = products.filter((p) => p.stock < 5);
+    setLowStockProducts(lowStock);
     setLastUpdated(new Date().toLocaleString());
   };
+
 
   const chartData = [
     {
@@ -153,6 +180,34 @@ const AdminDashboard: React.FC = () => {
             onClick={() => handleCardClick('user')}
           />
         </div>
+
+        <div className="low-stock-section">
+        <h2 className="section-title">Low Stock Alerts</h2>
+        {lowStockProducts.length === 0 ? (
+          <p>No low stock products </p>
+        ) : (
+          <table className="orders-table">
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>Product ID</th>
+                <th>Name</th>
+                <th>Stock</th>
+              </tr>
+            </thead>
+            <tbody>
+              {lowStockProducts.map((product, index) => (
+                <tr key={product.id}>
+                  <td>{index + 1}</td>
+                  <td>{product.id}</td>
+                  <td>{product.name}</td>
+                  <td>{product.stock}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
 
         <div className="recent-orders-section">
           <h2 className="section-title">Recent Orders</h2>

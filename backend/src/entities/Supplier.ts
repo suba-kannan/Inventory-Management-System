@@ -17,7 +17,6 @@ export class Supplier {
   @Column()
   address: string;
 
-
   @Column()
   company: string;
 

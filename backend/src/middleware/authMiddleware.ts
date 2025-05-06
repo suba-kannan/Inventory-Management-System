@@ -14,7 +14,6 @@ export const authenticateAdminToken = (req: AuthRequest, res: Response, next: Ne
   const token = req.header('Authorization')?.split(' ')[1];
 
   if (!token) {
-    console.log('agsyudhabda')
     res.status(401).json({ message: 'Access denied. No token provided' });
     return;
   }

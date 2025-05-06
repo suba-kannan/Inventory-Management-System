@@ -101,97 +101,6 @@ export const getOrdersByUser = async (req: Request, res: Response) => {
     }
   };
   
-
-  // export const updateOrder = async (req: Request, res: Response) => {
-  //   const orderId = parseInt(req.params.id);
-  //   const { quantity } = req.body;
-  //   const user = (req as any).user;
-  
-  //   if (user.role !== "admin") {
-  //      res.status(403).json({ message: "Access denied" });
-  //      return
-  //   }
-  
-  //   if (!quantity || quantity <= 0) {
-  //      res.status(400).json({ message: "Quantity must be a positive number" });
-  //      return
-  //   }
-  
-  //   const orderRepo = AppDataSource.getRepository(Order);
-  //   const productRepo = AppDataSource.getRepository(Product);
-  
-  //   try {
-  //     const order = await orderRepo.findOne({
-  //       where: { id: orderId },
-  //       relations: ["product"],
-  //     });
-  
-  //     if (!order) {
-  //        res.status(404).json({ message: "Order not found" });
-  //        return
-  //     }
-  
-  //     if (order.status === "cancelled") {
-  //        res.status(400).json({ message: "Cannot edit a cancelled order" });
-  //        return
-  //     }
-  
-  //     const product = order.product;
-  
-  //     const stockDiff = quantity - order.quantity;
-  //     if (stockDiff > 0 && product.stock < stockDiff) {
-  //        res.status(400).json({ message: "Not enough stock available" });
-  //        return
-  //     }
-  
-  //     product.stock -= stockDiff;
-  //     await productRepo.save(product);
-  
-  //     order.quantity = quantity;
-  //     order.totalPrice = quantity * product.price;
-  
-  //     await orderRepo.save(order);
-  
-  //      res.json(order);
-  //      return
-  //   } catch (err) {
-  //     console.error("Update order error:", err);
-  //      res.status(500).json({ message: "Server error" });
-  //      return
-  //   }
-  // };
-  
-  // export const cancelOrder = async (req: Request, res: Response) => {
-  //   try {
-  //     const orderId = parseInt(req.params.id);
-  //     const userId = (req as Request & { user: { id: number } }).user.id;
-  
-  //     const order = await orderRepo.findOne({
-  //       where: { id: orderId },
-  //       relations: ["product", "user"],
-  //     });
-  
-  //     if (!order) {
-  //        res.status(404).json({ message: "Order not found" });
-  //        return
-  //     }
-  
-  //     if (order.user.id !== userId && (req as any).user.role !== "admin") {      
-  //          res.status(403).json({ message: "Unauthorized" });
-  //          return
-  //     }
-  
-  //     order.product.stock += order.quantity;
-  //     await productRepo.save(order.product);
-  //     await orderRepo.remove(order);
-  
-  //      res.status(200).json({ message: "Order cancelled" });
-  //      return
-  //   } catch (error) {
-  //      res.status(500).json({ message: "Cancel error", error });
-  //      return
-  //   }
-  // };
   export const cancelOrder = async (req: Request, res: Response) => {
     try {
       const orderId = parseInt(req.params.id);
@@ -218,11 +127,9 @@ export const getOrdersByUser = async (req: Request, res: Response) => {
          return
       }
   
-      // Restore stock
       order.product.stock += order.quantity;
       await productRepo.save(order.product);
   
-      // Just update the status instead of deleting
       order.status = "cancelled";
       await orderRepo.save(order);
   
@@ -234,10 +141,7 @@ export const getOrdersByUser = async (req: Request, res: Response) => {
     }
   };
   
-
-  
-// Update order status (admin)
-export const updateOrderStatus = async (req: Request, res: Response) => {
+  export const updateOrderStatus = async (req: Request, res: Response) => {
   const { id } = req.params;
   const { status } = req.body;
 

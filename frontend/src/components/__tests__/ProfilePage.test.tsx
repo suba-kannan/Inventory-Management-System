@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import ProfilePage from "../ProfilePage"; // adjust the path if needed
+import ProfilePage from "../ProfilePage"; 
 import axios from "axios";
 
 jest.mock("axios");

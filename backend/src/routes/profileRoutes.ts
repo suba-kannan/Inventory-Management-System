@@ -7,5 +7,4 @@ const router = Router();
 router.get("/", authenticateToken, getProfile);
 router.put("/", authenticateToken, editProfile);
 
-
 export default router;
